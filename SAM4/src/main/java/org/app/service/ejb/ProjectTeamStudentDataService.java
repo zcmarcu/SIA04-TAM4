@@ -15,7 +15,7 @@ public interface ProjectTeamStudentDataService extends EntityRepository<Project>
 	//Query method on team components 
 	Team getTeamById(Integer teamid);
 	
-	//Other 
+	//Other
 	String getMessage();
 	
 }
