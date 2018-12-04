@@ -1,13 +1,14 @@
 package org.app.service.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
-public class StartEnd {
+public class StartEnd implements Comparable<StartEnd>, Serializable {
 	
-	@Id @GeneratedValue
+	@Id
 	private Integer idStartEnd;
 	
 	@Temporal(TemporalType.DATE)
@@ -64,5 +65,10 @@ public class StartEnd {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+	@Override
+	public int compareTo(StartEnd se) {
+		if(this.equals(se))
+			return 0;
+		return this.getIdStartEnd().compareTo(se.getIdStartEnd());
+	}
 }

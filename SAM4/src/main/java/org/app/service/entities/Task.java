@@ -1,11 +1,12 @@
 package org.app.service.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
-public class Task {
+public class Task implements Comparable<Task>, Serializable {
 	
 	@Id @GeneratedValue
 	private Integer idTask;
@@ -18,8 +19,7 @@ public class Task {
 	
 	private String descriereTask;
 
-	private enum Status{Open, InProgress, Done;};
-	private Status status;
+	private String status;
 	
 	@ManyToOne
 	private Student student;
@@ -59,11 +59,11 @@ public class Task {
 		this.descriereTask = descriereTask;
 	}
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -83,7 +83,7 @@ public class Task {
 		this.project = project;
 	}
 
-	public Task(Integer idTask, Date oraStartTask, Date oraEndTask, String descriereTask, Status status,
+	public Task(Integer idTask, Date oraStartTask, Date oraEndTask, String descriereTask, String status,
 			Student student, Project project) {
 		super();
 		this.idTask = idTask;
@@ -98,6 +98,13 @@ public class Task {
 	public Task() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public int compareTo(Task t) {
+		if(this.equals(t))
+			return 0;
+		return this.getIdTask().compareTo(t.getIdTask());
 	}
 	
 }

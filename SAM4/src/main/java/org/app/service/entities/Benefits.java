@@ -1,9 +1,12 @@
 package org.app.service.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
-public class Benefits {
+@Inheritance(strategy=InheritanceType.JOINED)
+public class Benefits implements Comparable<Benefits>, Serializable {
 	
 	@Id @GeneratedValue
 	private Integer idBenefit;
@@ -39,5 +42,12 @@ public class Benefits {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	@Override
+	public int compareTo(Benefits b) {
+		if(this.equals(b))
+			return 0;
+		return this.getIdBenefit().compareTo(b.getIdBenefit());
+	}
+	
 }

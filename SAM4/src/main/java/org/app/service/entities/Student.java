@@ -1,24 +1,20 @@
 package org.app.service.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
-public class Student {
+@Inheritance(strategy=InheritanceType.JOINED)
+public class Student implements Comparable<Student>, Serializable {
 	
 	@Id @GeneratedValue
 	private Integer idStudent;
 	private String username;
 	private String password;
 	private String userType;
-	
-	@OneToOne(optional=false)
-	private InfoStudent infoStudent;
-	
-	@OneToOne(optional=false)
-	private StartEnd startEnd;
 	
 	@OneToMany(mappedBy="student",cascade = CascadeType.ALL)
 	private List<Benefits> benefits = new ArrayList<Benefits>();
@@ -61,22 +57,6 @@ public class Student {
 		this.userType = userType;
 	}
 
-	public InfoStudent getInfoStudent() {
-		return infoStudent;
-	}
-
-	public void setInfoStudent(InfoStudent infoStudent) {
-		this.infoStudent = infoStudent;
-	}
-
-	public StartEnd getStartEnd() {
-		return startEnd;
-	}
-
-	public void setStartEnd(StartEnd startEnd) {
-		this.startEnd = startEnd;
-	}
-
 	public List<Benefits> getBenefits() {
 		return benefits;
 	}
@@ -101,23 +81,35 @@ public class Student {
 		this.tasks = tasks;
 	}
 
-	public Student(Integer idStudent, String username, String password, String userType, InfoStudent infoStudent,
-			StartEnd startEnd, List<Benefits> benefits, List<Team> teams, List<Task> tasks) {
+	public Student(Integer idStudent, String username, String password, String userType, List<Benefits> benefits, List<Team> teams, List<Task> tasks) {
 		super();
 		this.idStudent = idStudent;
 		this.username = username;
 		this.password = password;
 		this.userType = userType;
-		this.infoStudent = infoStudent;
-		this.startEnd = startEnd;
 		this.benefits = benefits;
 		this.teams = teams;
 		this.tasks = tasks;
+	}
+	
+	public Student(Integer idStudent, String username, String password, String userType) {
+		super();
+		this.idStudent = idStudent;
+		this.username = username;
+		this.password = password;
+		this.userType = userType;
 	}
 
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public int compareTo(Student s) {
+		if(this.equals(s))
+			return 0;
+		return this.getIdStudent().compareTo(s.getIdStudent());
 	}
 	
 }

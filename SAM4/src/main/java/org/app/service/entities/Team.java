@@ -1,12 +1,13 @@
 package org.app.service.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
-public class Team {
+public class Team implements Comparable<Team>, Serializable {
 	
 	@Id @GeneratedValue
 	private Integer idTeam;
@@ -62,6 +63,13 @@ public class Team {
 	public Team() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public int compareTo(Team t) {
+		if(this.equals(t))
+			return 0;
+		return this.getIdTeam().compareTo(t.getIdTeam());
 	}
 	
 }

@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.feaa.sam4</groupId>
+	<groupId>org.feaa.msd</groupId>
 	<artifactId>SAM4</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SAM4</name> 
@@ -15,12 +15,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.jboss.bom>13.0.0.Final</version.jboss.bom>
 		<version.javaee-api>7.0</version.javaee-api>
-		<!--  not necessarily  -->
-		<version.jboss.spec.javaee.7.0>1.0.3.Final</version.jboss.spec.javaee.7.0>
-		
-		<!-- other plug-in versions 
-		<version.war.plugin>3.0.0</version.war.plugin>-->
-		
 		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
 		
 		<!-- maven-plugins' versions -->
@@ -35,36 +29,16 @@
 		
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		
-		<jdk.system.path>${env.JAVA_HOME}</jdk.system.path>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-		
-		<dependency>
-			<groupId>org.jboss.spec</groupId>
-			<artifactId>jboss-javaee-7.0</artifactId>
-			<version>${version.jboss.spec.javaee.7.0}</version>
-			<type>pom</type>
-			<scope>import</scope>
-		</dependency>
-		<!-- 
 			<dependency>
 				<groupId>org.wildfly.bom</groupId>
 				<artifactId>wildfly-javaee7-with-tools</artifactId>
 				<version>${version.jboss.bom}</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
-		-->
-		<!-- Required by maven-compiler-plugin -->
-			<dependency>
-					<groupId>sun.jdk</groupId>
-					<artifactId>jconsole</artifactId>
-					<version>jdk</version>
-					<scope>system</scope>
-					<systemPath>${jdk.system.path}/lib/jconsole.jar</systemPath>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -81,20 +55,17 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- Arquillian dependencies -->
 		<dependency>
 			<groupId>org.jboss.arquillian.core</groupId>
 			<artifactId>arquillian-core-api</artifactId>
-			<version>1.1.13.Final</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.arquillian.junit</groupId>
 			<artifactId>arquillian-junit-container</artifactId>
-			<version>1.1.13.Final</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -106,7 +77,6 @@
 		<dependency>
 			<groupId>org.jboss.arquillian.protocol</groupId>
 			<artifactId>arquillian-protocol-servlet</artifactId>
-			<version>1.1.13.Final</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -126,25 +96,21 @@
 		    <artifactId>jboss-remoting</artifactId>
 		    <version>${version.jboss.remoting}</version>
 		</dependency>
-		<!-- 
 		<dependency>
 			<groupId>org.jboss.shrinkwrap.resolver</groupId>
 			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-			<version>3.0.19.Final</version>
 			<scope>test</scope>
 		</dependency>		
-		 -->
+		
 		<!-- Import the JAX-RS/RestEasy Client: to run REST remotely! (outside Arq.) -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-client</artifactId>
-			<version>3.0.19.Final</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jackson-provider</artifactId>
-			<version>3.0.19.Final</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

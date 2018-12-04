@@ -1,23 +1,27 @@
 package org.app.service.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
-public class Project {
+public class Project implements Comparable<Project>, Serializable {
 	
-	@Id @GeneratedValue
+	@Id
 	private Integer idProiect;
 	
 	private String denumireProiect;
 	private String tipProiect;
 
+	/*
 	private enum StatusProiect{Open, InProgress, Done;};
 	private StatusProiect statusProiect;
+	*/
+	private String statusProiect;
 	
-	@OneToMany(mappedBy="project", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="project", cascade = CascadeType.ALL) 
 	private List<Team>teams = new ArrayList<Team>();
 	
 	@OneToMany(mappedBy="project", cascade = CascadeType.ALL)
@@ -46,12 +50,12 @@ public class Project {
 	public void setTipProiect(String tipProiect) {
 		this.tipProiect = tipProiect;
 	}
-
-	public StatusProiect getStatusProiect() {
+	
+	public String getStatusProiect() {
 		return statusProiect;
 	}
 
-	public void setStatusProiect(StatusProiect statusProiect) {
+	public void setStatusProiect(String tipProiect) {
 		this.statusProiect = statusProiect;
 	}
 
@@ -71,7 +75,7 @@ public class Project {
 		this.tasks = tasks;
 	}
 
-	public Project(Integer idProiect, String denumireProiect, String tipProiect, StatusProiect statusProiect,
+	public Project(Integer idProiect, String denumireProiect, String tipProiect, String statusProiect,
 			List<Team> teams, List<Task> tasks) {
 		super();
 		this.idProiect = idProiect;
@@ -81,10 +85,25 @@ public class Project {
 		this.teams = teams;
 		this.tasks = tasks;
 	}
+	
+	public Project(Integer idProiect, String denumireProiect, String tipProiect, String statusProiect) {
+		super();
+		this.idProiect = idProiect;
+		this.denumireProiect = denumireProiect;
+		this.tipProiect = tipProiect;
+		this.statusProiect = statusProiect;
+	}
 
 	public Project() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public int compareTo(Project p) {
+		if(this.equals(p))
+			return 0;
+		return this.getIdProiect().compareTo(p.getIdProiect());
 	}
 	
 }

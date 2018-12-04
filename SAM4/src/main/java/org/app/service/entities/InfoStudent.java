@@ -1,9 +1,12 @@
 package org.app.service.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
-public class InfoStudent {
+@Inheritance(strategy=InheritanceType.JOINED)
+public class InfoStudent implements Comparable<InfoStudent>, Serializable {
 
 	@Id @GeneratedValue
 	private Integer idInfoStudent;
@@ -12,9 +15,18 @@ public class InfoStudent {
 	private String pozitie;
 	private String facultate;
 	private String anFacultate;
-	
+
 	@OneToOne(optional=false)
 	private Student student;
+	
+	
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
 
 	public Integer getIdInfoStudent() {
 		return idInfoStudent;
@@ -64,14 +76,6 @@ public class InfoStudent {
 		this.anFacultate = anFacultate;
 	}
 
-	public Student getStudent() {
-		return student;
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-
 	public InfoStudent(Integer idInfoStudent, String numeStudent, String prenumeStudent, String pozitie,
 			String facultate, String anFacultate, Student student) {
 		super();
@@ -87,6 +91,13 @@ public class InfoStudent {
 	public InfoStudent() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public int compareTo(InfoStudent i) {
+		if(this.equals(i))
+			return 0;
+		return this.getIdInfoStudent().compareTo(i.getIdInfoStudent());
 	}
 	
 }
